@@ -1,7 +1,7 @@
-import {Type} from '../../Type';
+import Type from '../../Type';
 
-export abstract class Operator extends Type {
-    protected operands: Array<any> = [];
+export default abstract class Operator extends Type {
+    protected operands: Array<Type> = [];
 
     public addOperand(value: Type) {
         this.operands.push(value);
@@ -10,5 +10,9 @@ export abstract class Operator extends Type {
 
     public getOperands() {
         return this.operands;
+    }
+
+    public removeOperand(index: number) {
+        this.operands.splice(index, 1);
     }
 }

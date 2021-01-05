@@ -1,6 +1,6 @@
-import {Action} from '../Action';
+import ActionOperator from '../ActionOperator';
 
-export class Minus extends Action {
+export default class Minus extends ActionOperator {
 
     public name = 'minus';
 
@@ -27,5 +27,9 @@ export class Minus extends Action {
             }
         }
         return true;
+    }
+
+    toString(): string {
+        return this.args.join(' - ');
     }
 }

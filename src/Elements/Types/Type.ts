@@ -1,5 +1,5 @@
-import {Element} from '../Element';
+import Element from '../Element';
 
-export abstract class Type extends Element {
+export default abstract class Type extends Element {
 
 }

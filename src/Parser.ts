@@ -1,19 +1,23 @@
-import {Workflow} from "./Workflow";
-import {Rule} from "./Elements/Types/ParentTypes/Rule";
-import {Type} from "./Elements/Types/Type";
-import {Loader} from "./Loader";
+import Workflow from './Workflow';
+import Rule from './Elements/Types/ParentTypes/Rule';
+import Loader from './Loader';
+import ParentType from './Elements/Types/ParentTypes/ParentType';
 
-export class Parser {
+export default class Parser {
 
     public static createFromJson(json: string): Workflow {
+        console.log('parsing');
+
         let decodedJson = JSON.parse(json);
         if (decodedJson === null) {
             throw 'Invalid JSON';
         }
-        let workflow = new Workflow(decodedJson.name)
+        const loader = new Loader();
+
+        let workflow = new Workflow(decodedJson.name, loader)
 
         for (const value of decodedJson.value) {
-            let parsedValue = Parser.parse(value);
+            let parsedValue = Parser.parse(value, loader);
             if (parsedValue instanceof Rule) {
                 workflow.addRules(parsedValue);
             }
@@ -21,22 +25,16 @@ export class Parser {
         return workflow;
     }
 
-    private static parse(decodedData: any, loader?: Loader): Type {
-
+    private static parse(decodedData: any, loader: Loader): ParentType {
         if (!decodedData.hasOwnProperty('type')) {
-            //@TODO
             throw 'Object type property must be defined';
         }
 
-        if (typeof loader == 'undefined') {
-            loader = new Loader();
-        }
-
-        let classType = loader.getTypeProviderConfig().getClass(decodedData.type);
-
-        let typeElement = classType.createFromParser(decodedData, loader);
+        let classType = loader.getTypeProviderConfig().createInstance(decodedData.type) as ParentType;
+        let typeElement: ParentType = classType.createFromParser(decodedData, loader);
+        console.log(typeElement);
         if (Array.isArray(decodedData.value)) {
-            for (let value of decodedData.value) {
+            for (const value of decodedData.value) {
                 typeElement.addValue(this.parse(value, loader))
             }
         }

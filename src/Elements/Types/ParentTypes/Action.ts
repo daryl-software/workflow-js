@@ -1,15 +1,12 @@
-import {ParentType} from './ParentType';
-import {Loader} from "../../../Loader";
+import ParentType from './ParentType';
+import Loader from '../../../Loader';
+import ActionElement from '../../Actions/ActionOperator';
 
-export class Action extends ParentType {
+export default class Action extends ParentType {
     public name = 'internalFunction';
-    public function: Action | null = null;
+    public function: ActionElement | null = null;
 
-    getHash(): string {
-        return '';
-    }
-
-    getJSONData(): { [p: string]: unknown } {
+    getJSONData(): { [p: string]: unknown } | null {
         return {};
     }
 
@@ -17,9 +14,9 @@ export class Action extends ParentType {
         return this.function?.getResult(vars, childrenValues);
     }
 
-    createFromParser(parsedData: { name: string }, configLoader?: Loader): any {
-        let instance = new Action();
-        instance.function = configLoader?.getActionProviderConfig().getClass(parsedData.name);
+    createFromParser(parsedData: { name: string }, loader: Loader): Action {
+        let instance = Action.create(loader);
+        instance.function = loader.getActionProviderConfig().createInstance(parsedData.name);
         return instance;
     }
 
@@ -28,5 +25,12 @@ export class Action extends ParentType {
             return false;
         }
         return this.function.isValid(vars, childrenValues);
+    }
+
+    public toString(): string {
+        if (!this.function) {
+            return '';
+        }
+        return '(' + this.function.toString() + ')';
     }
 }

@@ -1,65 +1,68 @@
-import {Type} from "./Providers/Type";
-import {Rule} from "./Elements/Types/ParentTypes/Rule";
-import {Any} from "./Elements/Types/Condition/Operators/Any";
-import {All} from "./Elements/Types/Condition/Operators/All";
-import {Action} from "./Providers/Action";
-import {Modulo} from "./Elements/Actions/Arithmetics/Modulo";
-import {Operator} from "./Providers/Operator";
-import {Operator as OperatorElement} from "./Elements/Types/ParentTypes/Operator";
-import {Equal} from "./Elements/Comparators/Equal";
-import {Condition} from "./Elements/Types/ParentTypes/Condition";
-import {Vars} from "./Elements/Types/ScalarTypes/Vars";
-import {Scalar} from "./Elements/Types/ScalarTypes/Scalar";
-import {Greater} from "./Elements/Comparators/Greater";
-import {GreaterOrEqual} from "./Elements/Comparators/GreaterOrEqual";
-import {Less} from "./Elements/Comparators/Less";
-import {LessOrEqual} from "./Elements/Comparators/LessOrEqual";
-import {Not} from "./Elements/Comparators/Not";
+import {
+    All,
+    Any,
+    Comparator,
+    Condition, Divide,
+    Equal,
+    Greater,
+    GreaterOrEqual,
+    Less,
+    LessOrEqual, Minus, Modulo,
+    Not, Plus, Pow,
+    Rule, Scalar, Times,
+    Variable
+} from './Elements';
+import {ActionProvider, ComparatorProvider, TypeProvider} from './Providers';
 
-export class Loader {
+export default class Loader {
 
-    private typeProviderConfig: Type | null = null;
-    private actionProviderConfig: Action | null = null;
-    private operatorProviderConfig: Operator | null = null;
+    private static typeProviderConfig: TypeProvider | null = null;
+    private static actionProviderConfig: ActionProvider | null = null;
+    private static comparatorProviderConfig: ComparatorProvider | null = null;
 
-    public getTypeProviderConfig(): Type {
-        if (this.typeProviderConfig != null) {
-            return this.typeProviderConfig;
+    public getTypeProviderConfig(): TypeProvider {
+        if (Loader.typeProviderConfig != null) {
+            return Loader.typeProviderConfig;
         }
 
-        this.typeProviderConfig = new Type();
-        this.typeProviderConfig.register(new Rule());
-        this.typeProviderConfig.register(new Condition());
-        this.typeProviderConfig.register(new OperatorElement());
-        this.typeProviderConfig.register(new Vars());
-        this.typeProviderConfig.register(new Scalar());
-        this.typeProviderConfig.register(new Any());
-        this.typeProviderConfig.register(new All());
-        return this.typeProviderConfig;
+        Loader.typeProviderConfig = new TypeProvider();
+        Loader.typeProviderConfig.register(Rule);
+        Loader.typeProviderConfig.register(Condition);
+        Loader.typeProviderConfig.register(Comparator);
+        Loader.typeProviderConfig.register(Variable);
+        Loader.typeProviderConfig.register(Scalar);
+        Loader.typeProviderConfig.register(Any);
+        Loader.typeProviderConfig.register(All);
+        return Loader.typeProviderConfig;
     }
 
-    public getOperatorProviderConfig() {
-        if (this.operatorProviderConfig != null) {
-            return this.operatorProviderConfig;
+    public getComparatorProviderConfig() {
+        if (Loader.comparatorProviderConfig != null) {
+            return Loader.comparatorProviderConfig;
         }
 
-        this.operatorProviderConfig = new Operator();
-        this.operatorProviderConfig.register(new Equal());
-        this.operatorProviderConfig.register(new Greater());
-        this.operatorProviderConfig.register(new GreaterOrEqual());
-        this.operatorProviderConfig.register(new Less());
-        this.operatorProviderConfig.register(new LessOrEqual());
-        this.operatorProviderConfig.register(new Not());
-        return this.operatorProviderConfig;
+        Loader.comparatorProviderConfig = new ComparatorProvider();
+        Loader.comparatorProviderConfig.register(Equal);
+        Loader.comparatorProviderConfig.register(Greater);
+        Loader.comparatorProviderConfig.register(GreaterOrEqual);
+        Loader.comparatorProviderConfig.register(Less);
+        Loader.comparatorProviderConfig.register(LessOrEqual);
+        Loader.comparatorProviderConfig.register(Not);
+        return Loader.comparatorProviderConfig;
     }
 
     public getActionProviderConfig() {
-        if (this.actionProviderConfig != null) {
-            return this.actionProviderConfig;
+        if (Loader.actionProviderConfig != null) {
+            return Loader.actionProviderConfig;
         }
 
-        this.actionProviderConfig = new Action();
-        this.actionProviderConfig.register(new Modulo());
-        return this.actionProviderConfig;
+        Loader.actionProviderConfig = new ActionProvider();
+        Loader.actionProviderConfig.register(Divide);
+        Loader.actionProviderConfig.register(Minus);
+        Loader.actionProviderConfig.register(Modulo);
+        Loader.actionProviderConfig.register(Plus);
+        Loader.actionProviderConfig.register(Pow);
+        Loader.actionProviderConfig.register(Times);
+        return Loader.actionProviderConfig;
     }
 }

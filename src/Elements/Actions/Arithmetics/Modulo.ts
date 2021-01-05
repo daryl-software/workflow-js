@@ -1,6 +1,6 @@
-import {Action} from '../Action';
+import ActionOperator from '../ActionOperator';
 
-export class Modulo extends Action {
+export default class Modulo extends ActionOperator {
 
     public name = 'modulo';
 
@@ -22,6 +22,7 @@ export class Modulo extends Action {
 
         return firstOperand % secondOperand;
     }
+
     public isValid(vars: any, childrenValues: Array<any>): boolean {
         if (childrenValues.length === 0) {
             return false;
@@ -33,5 +34,9 @@ export class Modulo extends Action {
             }
         }
         return true;
+    }
+
+    toString(): string {
+        return this.args.join(' % ');
     }
 }

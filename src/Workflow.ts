@@ -1,30 +1,44 @@
-import {Rule} from './Elements/Types/ParentTypes/Rule';
-import * as Crypto from "crypto";
+import Rule from './Elements/Types/ParentTypes/Rule';
+import * as Crypto from 'crypto';
+import Loader from './Loader';
+import {ScalarValue} from './typing/ScalarValue';
 
-export class Workflow {
+export default class Workflow {
     static readonly behaviorAllMatches: string = 'allMatches';
     static readonly behaviorFirstMatches: string = 'firstMatches';
-    static readonly stringSeparator: string = '|';
+    static readonly STRING_SEPARATOR: string = '|';
 
     /**
      * Workflow name
      */
     private name: string;
+
     private rules: Array<Rule> = new Array<Rule>();
 
-    constructor(name: string) {
+    private loader!: Loader;
+
+    constructor(name: string, loader: Loader) {
         this.name = name;
+        this.loader = loader;
+    }
+
+    public getJSON(): string {
+        return JSON.stringify(this);
     }
 
     public toJSON() {
         return {
             name: this.name,
             value: this.rules
-        };
+        }
     }
 
     public getName(): string {
         return this.name;
+    }
+
+    public getFirstRule(): Rule | null {
+        return this.rules.length > 0 ? this.rules[0] : null;
     }
 
     public getRules(): Array<Rule> {
@@ -36,7 +50,7 @@ export class Workflow {
         return this;
     }
 
-    public getResult(vars: Object, behavior: string) {
+    public getResult(vars: Map<string, ScalarValue>, behavior: string) {
         switch (behavior) {
             case Workflow.behaviorAllMatches:
                 return this.getAllMatches(vars);
@@ -47,7 +61,7 @@ export class Workflow {
         }
     }
 
-    public getAllMatches(vars: Object) {
+    public getAllMatches(vars: Map<string, ScalarValue>) {
         let rules = this.rules;
         let results = [];
         for (const rule of rules) {
@@ -59,7 +73,7 @@ export class Workflow {
         return results;
     }
 
-    public getFirstMatch(vars: Object) {
+    public getFirstMatch(vars: Map<string, ScalarValue>) {
         let rules = this.rules;
         for (const rule of rules) {
             let result = rule.run(vars);
@@ -77,5 +91,19 @@ export class Workflow {
         }
         hashes.sort();
         return Crypto.createHash('md5').update(this.constructor.name + '.' + hashes.join('.')).digest('hex');
+    }
+
+    public toString() {
+        return this.getRules().join(Workflow.STRING_SEPARATOR);
+    }
+
+    public getDebugString(): string {
+        return this.toString();
+    }
+
+    public attachNewRule() {
+        const rule = Rule.create(this.loader);
+        this.addRules(rule);
+        return rule;
     }
 }

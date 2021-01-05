@@ -1,6 +1,6 @@
-import {Operator} from './Operator';
+import Operator from './Operator';
 
-export class All extends Operator {
+export default class All extends Operator {
 
     public name = 'all';
 
@@ -8,7 +8,7 @@ export class All extends Operator {
         return '';
     }
 
-    getJSONData(): { [p: string]: unknown } {
+    getJSONData(): { [p: string]: unknown } | null {
         return {};
     }
 
@@ -22,6 +22,10 @@ export class All extends Operator {
     }
 
     public isValid(vars: any, childrenValues: any): boolean {
-        return this.operands.length !== 2;
+        return this.operands.length === 2;
+    }
+
+    public toString() {
+        return this.getOperands().join(' AND ');
     }
 }

@@ -1,6 +1,6 @@
-import {Action} from '../Action';
+import ActionOperator from '../ActionOperator';
 
-export class Plus extends Action {
+export default class Plus extends ActionOperator {
 
     public name = 'plus';
 
@@ -16,6 +16,7 @@ export class Plus extends Action {
 
         return result;
     }
+
     public isValid(vars: any, childrenValues: Array<any>): boolean {
         if (childrenValues.length === 0) {
             return false;
@@ -27,5 +28,9 @@ export class Plus extends Action {
             }
         }
         return true;
+    }
+
+    toString(): string {
+        return this.args.join(' + ');
     }
 }
