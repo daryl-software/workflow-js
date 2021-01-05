@@ -1,5 +1,5 @@
-import ActionOperator from '../ActionOperator';
-export default class Times extends ActionOperator {
+import ActionFunction from '../ActionFunction';
+export default class Times extends ActionFunction {
     name: string;
     getHash(): string;
     getResult(vars: any, childrenValues: any): number;

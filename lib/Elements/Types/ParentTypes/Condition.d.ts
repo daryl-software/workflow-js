@@ -2,7 +2,7 @@ import ParentType from './ParentType';
 import Loader from '../../../Loader';
 import Operator from '../Condition/Operators/Operator';
 import Type from '../Type';
-import ComparatorElement from '../../CompareOperators/CompareOperator';
+import Comparator from './Comparator';
 export default class Condition extends ParentType {
     name: string;
     conditionOperator: Operator | null;
@@ -19,7 +19,7 @@ export default class Condition extends ParentType {
     isValid(vars: any, childrenValues: any): boolean;
     toString(): string;
     getValues(): Array<Type>;
-    attachNewComparator(comparatorType: string): ComparatorElement;
+    attachNewComparator(comparatorType: string): Comparator;
     attachNewCondition(conditionType: string): Condition;
     setConditionOperator(conditionOperatorName: string): this;
     getConditionOperator(): Operator | null;

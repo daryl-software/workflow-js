@@ -1,4 +1,5 @@
 import {
+    Action,
     All,
     Any,
     Comparator,
@@ -29,6 +30,7 @@ export default class Loader {
         Loader.typeProviderConfig.register(Rule);
         Loader.typeProviderConfig.register(Condition);
         Loader.typeProviderConfig.register(Comparator);
+        Loader.typeProviderConfig.register(Action);
         Loader.typeProviderConfig.register(Variable);
         Loader.typeProviderConfig.register(Scalar);
         Loader.typeProviderConfig.register(Any);

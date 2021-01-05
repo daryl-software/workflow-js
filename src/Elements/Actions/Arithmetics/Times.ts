@@ -1,6 +1,6 @@
-import ActionOperator from '../ActionOperator';
+import ActionFunction from '../ActionFunction';
 
-export default class Times extends ActionOperator {
+export default class Times extends ActionFunction {
 
     public name = 'times';
 

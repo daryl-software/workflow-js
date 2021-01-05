@@ -1,7 +1,7 @@
 import Provider from './Provider';
-import ActionOperator from '../Elements/Actions/ActionOperator';
+import ActionFunction from '../Elements/Actions/ActionFunction';
 
-export default class ActionProvider extends Provider<ActionOperator> {
+export default class ActionProvider extends Provider<ActionFunction> {
 
     getProviderType() {
         return 'action';

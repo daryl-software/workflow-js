@@ -1,6 +1,6 @@
-import ActionOperator from '../ActionOperator';
+import ActionFunction from '../ActionFunction';
 
-export default class Divide extends ActionOperator {
+export default class Divide extends ActionFunction {
 
     public name = 'divide';
 

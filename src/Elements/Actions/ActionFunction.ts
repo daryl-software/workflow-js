@@ -1,9 +1,9 @@
 import Element from '../Element';
 import Type from '../Types/Type';
 
-export default abstract class ActionOperator extends Element {
+export default abstract class ActionFunction extends Element {
 
-    protected args: Array<Type> = new Array<Type>();
+    protected args: Array<Type> = [];
 
     public addArgs(arg: Type): void {
         this.args.push(arg);
@@ -11,6 +11,10 @@ export default abstract class ActionOperator extends Element {
 
     public getArgs(): Array<Type> {
         return this.args;
+    }
+
+    public removeArgs(index: number) {
+        return this.args.splice(index, 1);
     }
 
     public getHash(): string {

@@ -1,5 +1,5 @@
-import ActionOperator from '../ActionOperator';
-export default class Minus extends ActionOperator {
+import ActionFunction from '../ActionFunction';
+export default class Minus extends ActionFunction {
     name: string;
     getHash(): string;
     getResult(vars: any, childrenValues: any): number;

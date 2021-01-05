@@ -3,7 +3,6 @@ import Loader from '../../../Loader';
 import Operator from '../Condition/Operators/Operator';
 import Type from '../Type';
 import Comparator from './Comparator';
-import ComparatorElement from '../../CompareOperators/CompareOperator';
 
 export default class Condition extends ParentType {
 
@@ -36,7 +35,7 @@ export default class Condition extends ParentType {
 
     public removeValue(index: number) {
         if (!this.conditionOperator) {
-            throw `Cannot add value without any condition operator`;
+            throw `Cannot remove value without any condition operator`;
         }
         this.conditionOperator.removeOperand(index);
     }
@@ -73,16 +72,15 @@ export default class Condition extends ParentType {
         return this.conditionOperator.getOperands();
     }
 
-    public attachNewComparator(comparatorType: string): ComparatorElement {
+    public attachNewComparator(comparatorType: string): Comparator {
         if (!this.conditionOperator) {
             throw 'A condition operator must be set before adding childs';
         }
 
         const comparator = Comparator.create(this.getLoader());
-        const comparatorElement = this.getLoader().getComparatorProviderConfig().createInstance(comparatorType) as ComparatorElement;
-        comparator.setComparator(comparatorElement);
+        comparator.setCompareOperator(comparatorType);
         this.conditionOperator.addOperand(comparator);
-        return comparatorElement;
+        return comparator;
     }
 
     public attachNewCondition(conditionType: string): Condition {

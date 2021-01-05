@@ -25,7 +25,7 @@ export default class Parser {
 
     private static parse(decodedData: any, loader: Loader): ParentType {
         if (!decodedData.hasOwnProperty('type')) {
-            throw 'Object type property must be defined';
+            throw '[Workflow parsing error] : Object type property must be defined';
         }
 
         let classType = loader.getTypeProviderConfig().createInstance(decodedData.type) as ParentType;

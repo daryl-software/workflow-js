@@ -2,9 +2,12 @@ import ParentType from './ParentType';
 import Type from '../Type';
 import Loader from '../../../Loader';
 import CompareOperator from '../../CompareOperators/CompareOperator';
+import { ScalarValue } from '../../../typing/ScalarValue';
+import Action from './Action';
+import { Scalar, Variable } from '../ScalarTypes';
 export default class Comparator extends ParentType {
     name: string;
-    comparator: CompareOperator | null;
+    compareOperator: CompareOperator | null;
     getHash(): string;
     getJSONData(): {
         [p: string]: unknown;
@@ -14,9 +17,13 @@ export default class Comparator extends ParentType {
         comparator: string;
     }, loader: Loader): any;
     isValid(vars: any, childrenValues: any): boolean;
-    setComparator(comparator: CompareOperator): this;
     addValue(value: Type): any;
     removeValue(index: number): void;
     toString(): string;
     getValues(): Array<Type>;
+    setCompareOperator(compareOperatorType: string): this;
+    getCompareOperator(): CompareOperator | null;
+    attachNewAction(actionFunctionType: string): Action;
+    attachNewScalar(scalarValue: ScalarValue): Scalar;
+    attachNewVariable(variableName: string): Variable;
 }

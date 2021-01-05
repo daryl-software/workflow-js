@@ -4,7 +4,7 @@ import {ScalarValue} from '../../../typing/ScalarValue';
 
 export default abstract class ParentType extends Type {
 
-    protected values: Array<Type> = new Array<Type>();
+    protected values: Array<Type> = [];
 
     public getValues(): Array<Type> {
         return this.values;

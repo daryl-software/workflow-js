@@ -5,7 +5,7 @@ import Variable from '../Types/ScalarTypes/Variable';
 
 export default abstract class CompareOperator extends Element {
 
-    protected operands: Array<Type> = new Array<Type>();
+    protected operands: Array<Type> = [];
 
     public getHash(): string {
         return '';
@@ -31,7 +31,7 @@ export default abstract class CompareOperator extends Element {
         return operand;
     }
 
-    public attachNewVariable(name: string) {
+    public attachNewVariable(name: string): Variable {
         const operand = Variable.create(this.getLoader());
         operand.setValue(name);
         this.addOperand(operand);

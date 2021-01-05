@@ -4,6 +4,6 @@ import Modulo from './Arithmetics/Modulo';
 import Times from './Arithmetics/Times';
 import Plus from './Arithmetics/Plus';
 import Pow from './Arithmetics/Pow';
-import ActionOperator from './ActionOperator';
+import ActionFunction from './ActionFunction';
 
-export {Divide, Minus, Modulo, Plus, Times, Pow, ActionOperator}
+export {Divide, Minus, Modulo, Plus, Times, Pow, ActionFunction}

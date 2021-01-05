@@ -2,15 +2,18 @@ import ParentType from './ParentType';
 import Type from '../Type';
 import Loader from '../../../Loader';
 import CompareOperator from '../../CompareOperators/CompareOperator';
+import {ScalarValue} from '../../../typing/ScalarValue';
+import Action from './Action';
+import {Scalar, Variable} from '../ScalarTypes';
 
 export default class Comparator extends ParentType {
 
     public name = 'comparator';
-    public comparator: CompareOperator | null = null;
+    public compareOperator: CompareOperator | null = null;
 
     getHash(): string {
-        if (this.comparator) {
-            return this.hashValues(this.comparator?.getOperands(), this.comparator?.getName());
+        if (this.compareOperator) {
+            return this.hashValues(this.compareOperator?.getOperands(), this.compareOperator?.getName());
         } else {
             return '';
         }
@@ -19,61 +22,98 @@ export default class Comparator extends ParentType {
     getJSONData(): { [p: string]: unknown } | null {
         return {
             type: this.name,
-            comparator: this.comparator?.getName(),
-            value: this.comparator?.getOperands()
+            comparator: this.compareOperator?.getName(),
+            value: this.compareOperator?.getOperands()
         };
     }
 
     getResult(vars: any, childrenValues: any): unknown {
-        return this.comparator?.getResult(vars, childrenValues);
+        return this.compareOperator?.getResult(vars, childrenValues);
     }
 
     createFromParser(parsedData: { comparator: string }, loader: Loader): any {
         let instance = Comparator.create(loader);
-        instance.comparator = loader.getComparatorProviderConfig().createInstance(parsedData.comparator);
+        instance.compareOperator = loader.getComparatorProviderConfig().createInstance(parsedData.comparator);
         return instance;
     }
 
     isValid(vars: any, childrenValues: any): boolean {
-        if (this.comparator === null) {
+        if (this.compareOperator === null) {
             return false;
         }
-        return this.comparator.isValid(vars, childrenValues);
-    }
-
-    public setComparator(comparator: CompareOperator): this {
-        this.comparator = comparator;
-        return this;
+        return this.compareOperator.isValid(vars, childrenValues);
     }
 
     public addValue(value: Type): any {
-        if (!this.comparator) {
+        if (!this.compareOperator) {
             throw `Can't add operand without any comparator`;
         }
 
-        this.comparator.addOperand(value);
+        this.compareOperator.addOperand(value);
         return this;
     }
 
     public removeValue(index: number) {
-        if (!this.comparator) {
-            throw `Can't add operand without any comparator`;
+        if (!this.compareOperator) {
+            throw `Can't remove operand without any comparator`;
         }
 
-        this.comparator.removeOperand(index);
+        this.compareOperator.removeOperand(index);
     }
 
     toString(): string {
-        if (!this.comparator) {
+        if (!this.compareOperator) {
             return '';
         }
-        return this.comparator.toString();
+        return this.compareOperator.toString();
     }
 
     public getValues(): Array<Type> {
-        if (!this.comparator) {
+        if (!this.compareOperator) {
             return [];
         }
-        return this.comparator.getOperands();
+        return this.compareOperator.getOperands();
+    }
+
+    public setCompareOperator(compareOperatorType: string) {
+        this.compareOperator = this.getLoader().getComparatorProviderConfig().createInstance(compareOperatorType);
+        return this;
+    }
+
+    public getCompareOperator() {
+        return this.compareOperator;
+    }
+
+    public attachNewAction(actionFunctionType: string) {
+        if (!this.compareOperator) {
+            throw 'A compare operator must be set before adding childs';
+        }
+
+        const action = Action.create(this.getLoader());
+        action.setActionFunction(actionFunctionType);
+        this.compareOperator.addOperand(action);
+        return action;
+    }
+
+    public attachNewScalar(scalarValue: ScalarValue): Scalar {
+        if (!this.compareOperator) {
+            throw 'A compare operator must be set before adding childs';
+        }
+
+        const scalar = Scalar.create(this.getLoader());
+        scalar.setValue(scalarValue);
+        this.compareOperator.addOperand(scalar);
+        return scalar;
+    }
+
+    public attachNewVariable(variableName: string) {
+        if (!this.compareOperator) {
+            throw 'A compare operator must be set before adding childs';
+        }
+
+        const variable = Variable.create(this.getLoader());
+        variable.setValue(variableName);
+        this.compareOperator.addOperand(variable);
+        return variable;
     }
 }
