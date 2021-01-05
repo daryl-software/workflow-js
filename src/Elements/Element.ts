@@ -13,7 +13,7 @@ export default abstract class Element {
     public toJSON() {
         let jsonData = this.getJSONData();
         if (!jsonData) {
-            return '';
+            return {};
         }
 
         // add object hash

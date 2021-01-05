@@ -2,7 +2,7 @@ import CompareOperator from './CompareOperator';
 
 export default class GreaterOrEqual extends CompareOperator {
 
-    public name = 'greater';
+    public name = 'greaterOrEqual';
 
     getJSONData(): { [p: string]: unknown } | null {
         return {};

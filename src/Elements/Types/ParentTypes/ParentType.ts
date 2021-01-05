@@ -27,7 +27,6 @@ export default abstract class ParentType extends Type {
             if (value instanceof ParentType) {
                 childrenValues.push(value.runThroughTree(vars));
             } else {
-                console.log('child');
                 if (!value.isValid(vars, [])) {
                     throw `Child ${value.constructor.name} has not a valid value`;
                 }

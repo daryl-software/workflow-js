@@ -24,8 +24,6 @@ export default class Variable extends ScalarType {
 
     isValid(vars: Map<string, ScalarValue>, childrenValues: Array<any>): boolean {
         if (this.getValue()) {
-            console.log('la');
-            console.log(vars.has(this.getValue() as string) !== null);
             return vars.has(this.getValue() as string) !== null;
         }
         throw `Variable must have a value`;

@@ -4,4 +4,5 @@ export default abstract class Provider<T extends Element> {
     private registeredElements;
     register(element: new () => T): this;
     createInstance(element: string): T;
+    getRegisteredElement(): Array<string>;
 }

@@ -30,4 +30,8 @@ export default abstract class Provider<T extends Element> {
 
         return new el();
     }
+
+    public getRegisteredElement(): Array<string> {
+        return Array.from(this.registeredElements.get(this.getProviderType())?.keys() || []);
+    }
 }

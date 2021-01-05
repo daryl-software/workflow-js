@@ -48,6 +48,7 @@ export default class Loader {
         Loader.comparatorProviderConfig.register(Less);
         Loader.comparatorProviderConfig.register(LessOrEqual);
         Loader.comparatorProviderConfig.register(Not);
+
         return Loader.comparatorProviderConfig;
     }
 
@@ -64,5 +65,17 @@ export default class Loader {
         Loader.actionProviderConfig.register(Pow);
         Loader.actionProviderConfig.register(Times);
         return Loader.actionProviderConfig;
+    }
+
+    public getAvailableTypes() {
+        return this.getTypeProviderConfig().getRegisteredElement();
+    }
+
+    public getAvailableComparators() {
+        return this.getComparatorProviderConfig().getRegisteredElement();
+    }
+
+    public getAvailableActions() {
+        return this.getActionProviderConfig().getRegisteredElement();
     }
 }

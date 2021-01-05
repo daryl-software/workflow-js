@@ -2,7 +2,7 @@ import CompareOperator from './CompareOperator';
 
 export default class Not extends CompareOperator {
 
-    public name = 'lessOrEqual';
+    public name = 'not';
 
     getJSONData(): { [p: string]: unknown } | null {
         return {};

@@ -6,8 +6,6 @@ import ParentType from './Elements/Types/ParentTypes/ParentType';
 export default class Parser {
 
     public static createFromJson(json: string): Workflow {
-        console.log('parsing');
-
         let decodedJson = JSON.parse(json);
         if (decodedJson === null) {
             throw 'Invalid JSON';
@@ -32,7 +30,6 @@ export default class Parser {
 
         let classType = loader.getTypeProviderConfig().createInstance(decodedData.type) as ParentType;
         let typeElement: ParentType = classType.createFromParser(decodedData, loader);
-        console.log(typeElement);
         if (Array.isArray(decodedData.value)) {
             for (const value of decodedData.value) {
                 typeElement.addValue(this.parse(value, loader))
