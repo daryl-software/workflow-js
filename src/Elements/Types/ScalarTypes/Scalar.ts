@@ -1,29 +1,25 @@
-import {ScalarType} from './ScalarType';
-import {Loader} from "../../../Loader";
+import ScalarType from './ScalarType';
+import Loader from '../../../Loader';
 
-export class Scalar extends ScalarType {
+export default class Scalar extends ScalarType {
 
     public name = 'scalar';
-    public scalarValue: number | string | Array<any> | null = null;
-
-    getHash(): string {
-        return '';
-    }
-
-    getJSONData(): { [p: string]: unknown } {
-        return {}
-    }
 
     getResult(vars: any, childrenValues: any): any {
         return this.scalarValue;
     }
 
-    createFromParser(parsedData: { value: any }, configLoader: Loader): any {
-        let instance = new Scalar();
+    createFromParser(parsedData: { value: any }, loader: Loader): any {
+        let instance = Scalar.create(loader);
         instance.scalarValue = parsedData.value;
         return instance;
     }
+
     isValid(vars: any, childrenValues: any): boolean {
         return this.scalarValue !== null;
+    }
+
+    public toString(): string {
+        return this.getValue() as string;
     }
 }

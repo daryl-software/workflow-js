@@ -1,6 +1,6 @@
-import {Action} from '../Action';
+import ActionFunction from '../ActionFunction';
 
-export class Times extends Action {
+export default class Times extends ActionFunction {
 
     public name = 'times';
 
@@ -28,5 +28,9 @@ export class Times extends Action {
             }
         }
         return true;
+    }
+
+    toString(): string {
+        return this.args.join(' x ');
     }
 }

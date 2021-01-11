@@ -1,6 +1,6 @@
-import {Action} from '../Action';
+import ActionFunction from '../ActionFunction';
 
-export class Divide extends Action {
+export default class Divide extends ActionFunction {
 
     public name = 'divide';
 
@@ -30,5 +30,7 @@ export class Divide extends Action {
         return true;
     }
 
-
+    toString(): string {
+        return this.args.join(' / ');
+    }
 }

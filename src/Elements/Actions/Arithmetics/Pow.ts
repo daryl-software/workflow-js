@@ -1,6 +1,6 @@
-import {Action} from '../Action';
+import ActionFunction from '../ActionFunction';
 
-export class Pow extends Action {
+export default class Pow extends ActionFunction {
 
     public name = 'pow';
 
@@ -11,6 +11,7 @@ export class Pow extends Action {
     getResult(vars: any, childrenValues: any): number {
         return childrenValues[0] ** childrenValues[1];
     }
+
     public isValid(vars: any, childrenValues: Array<any>): boolean {
         if (childrenValues.length === 0) {
             return false;
@@ -22,5 +23,9 @@ export class Pow extends Action {
             }
         }
         return true;
+    }
+
+    toString(): string {
+        return this.args.join(' ** ');
     }
 }

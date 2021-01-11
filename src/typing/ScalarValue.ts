@@ -1,0 +1,1 @@
+export type ScalarValue = number | string | Array<ScalarValue>;
