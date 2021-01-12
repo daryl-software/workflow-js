@@ -6,9 +6,12 @@ import ParentType from './Elements/Types/ParentTypes/ParentType';
 export default class Parser {
 
     public static createFromJson(json: string): Workflow {
-        let decodedJson = JSON.parse(json);
+        let decodedJson: any = null;
+        try {
+            decodedJson = JSON.parse(json);
+        } catch (exception) {}
         if (decodedJson === null) {
-            throw 'Invalid JSON';
+            throw 'Invalid Workflow JSON';
         }
         const loader = new Loader();
 
