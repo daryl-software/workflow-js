@@ -22,7 +22,7 @@ export default class All extends Operator {
     }
 
     public isValid(vars: any, childrenValues: any): boolean {
-        return this.operands.length === 2;
+        return this.operands.length > 0;
     }
 
     public toString() {

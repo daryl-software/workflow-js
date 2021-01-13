@@ -11,7 +11,7 @@ export default class Plus extends ActionFunction {
     getResult(vars: any, childrenValues: any): number {
         let result = childrenValues.shift();
         for (let childrenValue of childrenValues) {
-            result -= childrenValue;
+            result += childrenValue;
         }
 
         return result;
