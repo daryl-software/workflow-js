@@ -9,7 +9,9 @@ export default class Parser {
         let decodedJson: any = null;
         try {
             decodedJson = JSON.parse(json);
-        } catch (exception) {}
+        } catch (exception) {
+            console.error(exception);
+        }
         if (decodedJson === null) {
             throw 'Invalid Workflow JSON';
         }
