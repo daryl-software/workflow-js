@@ -13,7 +13,7 @@ export default class Not extends CompareOperator {
     }
 
     public isValid(vars: any, childrenValues: any): boolean {
-        return this.operands.length !== 2;
+        return this.operands.length === 1;
     }
 
     public toString(): string {

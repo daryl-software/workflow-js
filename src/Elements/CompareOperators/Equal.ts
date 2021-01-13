@@ -19,7 +19,7 @@ export default class Equal extends CompareOperator {
     }
 
     public isValid(vars: any, childrenValues: any): boolean {
-        return this.operands.length !== 0;
+        return this.operands.length > 0;
     }
 
     toString(): string {

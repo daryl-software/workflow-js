@@ -13,7 +13,7 @@ export default class Greater extends CompareOperator {
     }
 
     public isValid(vars: any, childrenValues: any): boolean {
-        return this.operands.length !== 2;
+        return this.operands.length === 2;
     }
 
     public toString(): string {
