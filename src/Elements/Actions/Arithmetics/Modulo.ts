@@ -9,10 +9,6 @@ export default class Modulo extends ActionFunction {
     }
 
     getResult(vars: any, childrenValues: any): unknown {
-        if (vars.length !== 2) {
-            throw 'Modulo must have 2 args, ' + vars.length + ' given';
-        }
-
         let firstOperand = Number(this.args[0].getResult(vars, childrenValues));
         let secondOperand = Number(this.args[1].getResult(vars, childrenValues));
 
@@ -24,7 +20,7 @@ export default class Modulo extends ActionFunction {
     }
 
     public isValid(vars: any, childrenValues: Array<any>): boolean {
-        if (childrenValues.length === 0) {
+        if (childrenValues.length !== 2) {
             return false;
         }
 
