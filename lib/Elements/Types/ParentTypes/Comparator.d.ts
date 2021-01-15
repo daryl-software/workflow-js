@@ -21,7 +21,7 @@ export default class Comparator extends ParentType {
     removeValue(index: number): void;
     toString(): string;
     getValues(): Array<Type>;
-    setCompareOperator(compareOperatorType: string): this;
+    setCompareOperator(compareOperatorType: string, emptyValue?: boolean): this;
     getCompareOperator(): CompareOperator | null;
     attachNewAction(actionFunctionType: string): Action;
     attachNewScalar(scalarValue: ScalarValue): Scalar;

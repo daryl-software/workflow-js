@@ -17,7 +17,7 @@ export default class Action extends ParentType {
     isValid(vars: any, childrenValues: any): boolean;
     toString(): string;
     getValues(): Array<Type>;
-    setActionFunction(actionFunctionType: string): Action;
+    setActionFunction(actionFunctionType: string, emptyValue?: boolean): Action;
     getActionFunction(): ActionElement | null;
     attachNewAction(actionFunctionType: string): Action;
     attachNewScalar(scalarValue: ScalarValue): Scalar;

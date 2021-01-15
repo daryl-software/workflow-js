@@ -45,8 +45,19 @@ export default class Action extends ParentType {
         return this.actionFunction?.getArgs() || [];
     }
 
-    public setActionFunction(actionFunctionType: string): Action {
-        this.actionFunction = this.getLoader().getActionProviderConfig().createInstance(actionFunctionType);
+    public setActionFunction(actionFunctionType: string, emptyValue: boolean = false): Action {
+        const actionFunction = this.getLoader().getActionProviderConfig().createInstance(actionFunctionType);
+
+        if (!emptyValue) {
+            const values = this.getValues();
+            if (values.length > 0) {
+                values.forEach((value) => {
+                    actionFunction.addArgs(value);
+                });
+            }
+        }
+
+        this.actionFunction = actionFunction;
         return this;
     }
 
