@@ -94,10 +94,19 @@ export default class Condition extends ParentType {
         return condition;
     }
 
-    public setConditionOperator(conditionOperatorName: string): this {
+    public setConditionOperator(conditionOperatorName: string, emptyValue: boolean = false): this {
         const conditionOperator = this.getLoader().getTypeProviderConfig().createInstance(conditionOperatorName);
         if (!(conditionOperator instanceof Operator)) {
             throw `Given name must be an condition operator`;
+        }
+
+        if (!emptyValue) {
+            const values = this.getValues();
+            if (values.length > 0) {
+                values.forEach((value) => {
+                    conditionOperator.addOperand(value);
+                });
+            }
         }
 
         this.conditionOperator = conditionOperator;

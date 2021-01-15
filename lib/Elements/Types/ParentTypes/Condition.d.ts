@@ -21,6 +21,6 @@ export default class Condition extends ParentType {
     getValues(): Array<Type>;
     attachNewComparator(comparatorType: string): Comparator;
     attachNewCondition(conditionType: string): Condition;
-    setConditionOperator(conditionOperatorName: string): this;
+    setConditionOperator(conditionOperatorName: string, emptyValue?: boolean): this;
     getConditionOperator(): Operator | null;
 }

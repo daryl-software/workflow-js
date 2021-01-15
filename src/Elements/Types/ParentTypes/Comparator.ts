@@ -75,8 +75,19 @@ export default class Comparator extends ParentType {
         return this.compareOperator.getOperands();
     }
 
-    public setCompareOperator(compareOperatorType: string) {
-        this.compareOperator = this.getLoader().getComparatorProviderConfig().createInstance(compareOperatorType);
+    public setCompareOperator(compareOperatorType: string, emptyValue: boolean = false) {
+        const operator = this.getLoader().getComparatorProviderConfig().createInstance(compareOperatorType);
+
+        if (!emptyValue) {
+            const values = this.getValues();
+            if (values.length > 0) {
+                values.forEach((value) => {
+                    operator.addOperand(value);
+                });
+            }
+        }
+
+        this.compareOperator = operator;
         return this;
     }
 
