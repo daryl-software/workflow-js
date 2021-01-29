@@ -13,7 +13,7 @@ export default class Pow extends ActionFunction {
     }
 
     public isValid(vars: any, childrenValues: Array<any>): boolean {
-        if (childrenValues.length === 0) {
+        if (childrenValues.length < 2) {
             return false;
         }
 
