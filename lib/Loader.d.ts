@@ -7,6 +7,7 @@ export default class Loader {
     getComparatorProviderConfig(): ComparatorProvider;
     getActionProviderConfig(): ActionProvider;
     getAvailableTypes(): string[];
+    getAvailableConditionOperator(): string[];
     getAvailableComparators(): string[];
     getAvailableActions(): string[];
 }

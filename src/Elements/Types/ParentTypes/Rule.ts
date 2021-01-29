@@ -32,6 +32,15 @@ export default class Rule extends ParentType {
         return this.runThroughTree(vars);
     }
 
+    public isRuleValid(vars: Map<string, ScalarValue>): any {
+        try {
+            // just used to throw exception when invalid, do not care about result
+            this.run(vars);
+            return true;
+        } catch (exception) {}
+        return false;
+    }
+
     public getReturn() {
         return this.return;
     }

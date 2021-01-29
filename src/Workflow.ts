@@ -83,6 +83,17 @@ export default class Workflow {
         }
     }
 
+    public isValid(vars: Map<string, ScalarValue>) {
+        let rules = this.rules;
+        for (const rule of rules) {
+            let result = rule.isRuleValid(vars);
+            if (!result) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public getHash() {
         let elements = this.rules;
         let hashes: Array<string> = new Array<string>();

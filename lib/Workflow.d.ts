@@ -21,6 +21,7 @@ export default class Workflow {
     getResult(vars: Map<string, ScalarValue>, behavior: string): any;
     getAllMatches(vars: Map<string, ScalarValue>): any[];
     getFirstMatch(vars: Map<string, ScalarValue>): any;
+    isValid(vars: Map<string, ScalarValue>): boolean;
     getHash(): string;
     toString(): string;
     getDebugString(): string;

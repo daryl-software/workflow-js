@@ -73,6 +73,12 @@ export default class Loader {
         return this.getTypeProviderConfig().getRegisteredElement();
     }
 
+    public getAvailableConditionOperator() {
+        return this.getTypeProviderConfig().getRegisteredElement().filter((type) => {
+            return !['rule', 'condition', 'comparator', 'action', 'variable', 'scalar'].includes(type)
+        });
+    }
+
     public getAvailableComparators() {
         return this.getComparatorProviderConfig().getRegisteredElement();
     }

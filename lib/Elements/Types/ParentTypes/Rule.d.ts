@@ -11,6 +11,7 @@ export default class Rule extends ParentType {
     } | null;
     getResult(vars: any, childrenValues: any): unknown;
     run(vars: Map<string, ScalarValue>): any;
+    isRuleValid(vars: Map<string, ScalarValue>): any;
     getReturn(): any;
     setReturn(returnValue: any): void;
     createFromParser(parsedData: any, configLoader?: Loader): Rule;
