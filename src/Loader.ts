@@ -6,10 +6,10 @@ import {
     Condition, Divide,
     Equal,
     Greater,
-    GreaterOrEqual,
+    GreaterOrEqual, In,
     Less,
     LessOrEqual, Minus, Modulo,
-    Not, Plus, Pow,
+    Not, NotEqual, NotIn, Plus, Pow,
     Rule, Scalar, Times,
     Variable
 } from './Elements';
@@ -45,11 +45,14 @@ export default class Loader {
 
         Loader.comparatorProviderConfig = new ComparatorProvider();
         Loader.comparatorProviderConfig.register(Equal);
+        Loader.comparatorProviderConfig.register(NotEqual);
         Loader.comparatorProviderConfig.register(Greater);
         Loader.comparatorProviderConfig.register(GreaterOrEqual);
         Loader.comparatorProviderConfig.register(Less);
         Loader.comparatorProviderConfig.register(LessOrEqual);
         Loader.comparatorProviderConfig.register(Not);
+        Loader.comparatorProviderConfig.register(In);
+        Loader.comparatorProviderConfig.register(NotIn);
 
         return Loader.comparatorProviderConfig;
     }
